@@ -46,35 +46,44 @@ app.get('/api', (req, res) => {
     endpoint: '/api',
     method: 'POST',
     body: {
-      pregunta: 'string (requerido)'
+      pregunta: 'string (requerido)',
+      slug: 'string (requerido)'
     },
     ejemplo: {
-      pregunta: "¿Qué información tienes sobre los stands?"
+      pregunta: "¿Qué información tienes sobre este stand?",
+      slug: "nombre-del-stand"
     }
   });
 });
 
 // 🤖 Ruta principal que consulta Supabase y responde con Groq
 app.post('/api', async (req, res) => {
-  const { pregunta } = req.body;
+  const { pregunta, slug } = req.body;
   console.log('POST /api - Pregunta recibida:', pregunta);
+  console.log('POST /api - Slug recibido:', slug);
 
-  if (!pregunta) {
-    return res.status(400).json({ error: 'La pregunta es requerida' });
+  if (!pregunta || !slug) {
+    return res.status(400).json({ error: 'La pregunta y el slug son requeridos' });
   }
 
   try {
-    // 🔍 Consultar Supabase para obtener contexto
-    const { data: stands, error } = await supabase
+    // 🔍 Consultar Supabase para obtener contexto específico del stand
+    const { data: stand, error } = await supabase
       .from('stands')
-      .select('ai_stands');
+      .select('ai_stands, name, description')
+      .eq('slug', slug)
+      .single();
 
     if (error) {
       console.error('Error consultando Supabase:', error);
       return res.status(500).json({ error: 'Error al consultar Supabase' });
     }
 
-    const contexto = stands.map(stand => stand.ai_stands).join('\n');
+    if (!stand) {
+      return res.status(404).json({ error: 'Stand no encontrado' });
+    }
+
+    const contexto = `Información del stand "${stand.name}":\n${stand.description}\n\nContexto específico del stand:\n${stand.ai_stands}`;
 
     // 🧠 Construcción del mensaje para Groq
     const messages = [
