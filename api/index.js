@@ -23,6 +23,9 @@ app.use(cors({
 // 📁 Servir archivos estáticos desde la carpeta public
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// 📁 Servir archivos estáticos de Swagger
+app.use('/api/v1/docs', express.static(path.join(__dirname, '..', 'node_modules', 'swagger-ui-dist')));
+
 // 📚 Configuración de Swagger
 const swaggerOptions = {
   definition: {
@@ -34,8 +37,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Servidor de desarrollo',
+        url: process.env.NODE_ENV === 'production' 
+          ? 'https://cheerchat-ia.vercel.app'
+          : 'http://localhost:3000',
+        description: process.env.NODE_ENV === 'production' ? 'Servidor de producción' : 'Servidor de desarrollo',
       },
     ],
   },
@@ -43,7 +48,22 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
-app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "CheersChat IA API Documentation",
+  customfavIcon: "/favicon.ico",
+  swaggerOptions: {
+    persistAuthorization: true,
+    docExpansion: 'none',
+    filter: true,
+    showExtensions: true,
+    showCommonExtensions: true,
+    syntaxHighlight: {
+      activate: true,
+      theme: "monokai"
+    }
+  }
+}));
 
 // 🎨 Interfaz principal
 app.get('/', (req, res) => {
