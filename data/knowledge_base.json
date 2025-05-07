@@ -1,0 +1,67 @@
+{
+  "knowledge_base": [
+    {
+      "id": "general",
+      "title": "Información General",
+      "content": "👋 Hola, soy Cheersy, quiero apoyarte.\n\nCheersChat es una plataforma para conocer personas en lugares reales, como bares, restaurantes y espacios sociales. Usando el WiFi del lugar, puedes ver quién más está conectado y abierto a hacer nuevos amigos, contactos profesionales o incluso encontrar pareja.\n\nTe permite:\n- Ver quién más está conectado en el mismo sitio que tú.\n- Iniciar conversaciones seguras desde la app.\n- Elegir el tipo de conexión que buscas: amistad, negocios o citas.\n- Conectar sin presión y con respeto mutuo.\n\n⚠️ Si recibo mensajes ofensivos o preguntas que no están relacionadas con mi función, no podré responder. Estoy programado para mantener siempre una línea de respeto y apoyo positivo. 💜",
+      "links": [
+        {
+          "title": "Sitio Web",
+          "url": "https://www.cheerschat.com/"
+        }
+      ]
+    },
+    {
+      "id": "brm",
+      "title": "Sobre BRM",
+      "content": "BRM es una empresa líder en soluciones tecnológicas, especializada en el desarrollo de software y servicios de consultoría. Ofrecemos soluciones innovadoras para empresas de todos los tamaños, incluyendo la integración con herramientas como CheersChat.",
+      "links": [
+        {
+          "title": "Sitio Web BRM",
+          "url": "https://www.cheerschat.com/landing-brm"
+        }
+      ]
+    },
+    {
+      "id": "cheerschat_info",
+      "title": "¿Qué es CheersChat?",
+      "content": "CheersChat es una plataforma para conocer personas en tiempo real dentro de bares, restaurantes y lugares sociales de tu ciudad. Imagina llegar a un lugar y ver quién más está allí conectado al mismo WiFi para hacer nuevos amigos, encontrar a alguien con quien hablar o incluso hacer conexiones profesionales. ¡Es como romper el hielo sin miedo ni incomodidad!",
+      "links": [
+        {
+          "title": "App Store",
+          "url": "https://apps.apple.com/mx/app/cheerschat/id6736347779"
+        },
+        {
+          "title": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.cheerschat.cheerschat&hl=es_MX"
+        }
+      ]
+    },
+    {
+      "id": "cheerschat_descargas",
+      "title": "¿Dónde descargar CheersChat?",
+      "content": "👋 Hola, soy Cheersy, quiero apoyarte a comenzar.\n\nPuedes descargar CheersChat gratis y empezar a conocer gente cerca de ti en cualquier momento. La app está disponible en:\n\n📱 iPhone: App Store\n📱 Android: Google Play\n\nSolo necesitas instalar la app, permitir el acceso al WiFi del lugar y empezar a explorar quién más está conectado.\n\n⚠️ Recuerda: si haces preguntas ofensivas o fuera de contexto, no podré responder. Estoy diseñado para mantener respeto en todo momento.",
+      "links": [
+        {
+          "title": "App Store",
+          "url": "https://apps.apple.com/mx/app/cheerschat/id6736347779"
+        },
+        {
+          "title": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.cheerschat.cheerschat&hl=es_MX"
+        }
+      ]
+    },
+    {
+      "id": "cheerschat_brm",
+      "title": "Solución CheersChat para negocios (BRM)",
+      "content": "👋 Hola, soy Cheersy, quiero apoyarte.\n\nCheersChat, en colaboración con BRM, ofrece una solución única para que bares, restaurantes y espacios sociales aumenten la interacción de sus visitantes. Al conectar a los clientes con el WiFi, los establecimientos pueden promover interacción directa entre usuarios, promociones exclusivas y campañas personalizadas en tiempo real.\n\nBeneficios para los negocios:\n- Incrementa el tiempo de permanencia del cliente.\n- Fomenta una experiencia social más rica.\n- Permite campañas de marketing hiperlocal basadas en presencia física.",
+      "links": [
+        {
+          "title": "Solución para Negocios",
+          "url": "https://www.cheerschat.com/landing-brm"
+        }
+      ]
+    }
+  ]
+}

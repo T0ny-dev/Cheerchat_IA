@@ -1,35 +1,33 @@
-# API de Asistente Virtual con Groq y Supabase
+# API de Asistente Virtual CheersChat IA
 
-API que utiliza Groq para generar respuestas basadas en el contexto de stands almacenados en Supabase.
+API que utiliza Groq para generar respuestas concisas basadas en una base de conocimiento local sobre CheersChat y BRM.
 
 ## 🚀 Características
 
-- Integración con Supabase para obtener contexto
-- Uso de Groq para generar respuestas inteligentes
+- Base de conocimiento local en JSON
+- Uso de Groq para generar respuestas inteligentes y concisas
 - API RESTful con endpoints documentados
 - CORS configurado para desarrollo local y producción
+- Interfaz web amigable con documentación integrada
 
 ## 🛠️ Tecnologías
 
 - Node.js
 - Express
-- Supabase
 - Groq API
-- Vercel (despliegue)
+- Swagger UI (documentación)
 
 ## 📋 Requisitos
 
 - Node.js (v14 o superior)
-- Cuenta en Supabase
 - API Key de Groq
-- Cuenta en Vercel (para despliegue)
 
 ## 🔧 Configuración
 
 1. Clona el repositorio:
 ```bash
 git clone [URL_DEL_REPOSITORIO]
-cd chatgpt-vercel-backend
+cd emeia-chatbot
 ```
 
 2. Instala las dependencias:
@@ -39,32 +37,35 @@ npm install
 
 3. Crea un archivo `.env` con las siguientes variables:
 ```env
-SUPABASE_URL=tu_url_de_supabase
-SUPABASE_ANON_KEY=tu_anon_key_de_supabase
 GROQ_API_KEY=tu_api_key_de_groq
+PORT=3000
 ```
-
-## 🚀 Despliegue en Vercel
-
-1. Conecta tu repositorio con Vercel
-2. Configura las variables de entorno en el dashboard de Vercel
-3. Vercel desplegará automáticamente tu API
 
 ## 📝 Endpoints
 
-### GET /api/health
+### GET /
+Interfaz web principal con documentación visual.
+
+### GET /api/v1/health
 Verifica el estado del servidor.
 
-### GET /api
-Proporciona información sobre cómo usar la API.
+### GET /api/v1/docs
+Documentación completa de la API (Swagger UI).
 
-### POST /api
+### POST /api/v1/query
 Endpoint principal para hacer preguntas.
 
 **Body:**
 ```json
 {
-    "pregunta": "¿Qué información tienes sobre los stands?"
+    "pregunta": "¿Qué es CheersChat?"
+}
+```
+
+**Respuesta:**
+```json
+{
+    "respuesta": "CheersChat es una app que te permite conocer personas en bares y restaurantes usando el WiFi del lugar. Disponible en App Store y Google Play."
 }
 ```
 
