@@ -27,13 +27,38 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api/v1/docs', express.static(path.join(__dirname, '..', 'node_modules', 'swagger-ui-dist')));
 
 // 📚 Configuración de Swagger
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Query:
+ *       type: object
+ *       required:
+ *         - pregunta
+ *       properties:
+ *         pregunta:
+ *           type: string
+ *           description: La pregunta que deseas hacer sobre CheersChat o BRM
+ *           example: "¿Qué es CheersChat?"
+ *     Response:
+ *       type: object
+ *       properties:
+ *         respuesta:
+ *           type: string
+ *           description: Respuesta generada por el asistente virtual
+ */
+
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'CheersChat IA API',
       version: '1.0.0',
-      description: 'API para consultar la base de conocimiento de CheerChat IA',
+      description: 'API para consultar la base de conocimiento de CheersChat IA. Esta API permite realizar preguntas sobre CheersChat y BRM, generando respuestas concisas y relevantes.',
+      contact: {
+        name: 'Soporte CheersChat',
+        url: 'https://www.cheerschat.com'
+      }
     },
     servers: [
       {
@@ -41,29 +66,48 @@ const swaggerOptions = {
           ? 'https://cheerchat-ia.vercel.app'
           : 'http://localhost:3000',
         description: process.env.NODE_ENV === 'production' ? 'Servidor de producción' : 'Servidor de desarrollo',
-      },
+      }
     ],
+    tags: [
+      {
+        name: 'Consultas',
+        description: 'Endpoints para realizar consultas a la base de conocimiento'
+      }
+    ]
   },
-  apis: ['./api/index.js'],
+  apis: ['./api/index.js']
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
-  customCss: '.swagger-ui .topbar { display: none }',
+  customCss: `
+    .swagger-ui .topbar { display: none }
+    .swagger-ui .info .title { color: #6366f1 }
+    .swagger-ui .info .description { font-size: 16px }
+    .swagger-ui .btn.execute { background-color: #6366f1 }
+    .swagger-ui .btn.execute:hover { background-color: #4f46e5 }
+    .swagger-ui .opblock.opblock-post { background: rgba(99, 102, 241, 0.1) }
+    .swagger-ui .opblock.opblock-post .opblock-summary { border-color: #6366f1 }
+  `,
   customSiteTitle: "CheersChat IA API Documentation",
-  customfavIcon: "/favicon.ico",
+  customfavIcon: "/logo.gif",
   swaggerOptions: {
     persistAuthorization: true,
-    docExpansion: 'none',
+    docExpansion: 'list',
     filter: true,
-    showExtensions: true,
-    showCommonExtensions: true,
+    displayRequestDuration: true,
     syntaxHighlight: {
       activate: true,
       theme: "monokai"
     }
   }
 }));
+
+// 📚 Endpoint para servir el archivo swagger.json
+app.get('/api/v1/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerDocs);
+});
 
 // 🎨 Interfaz principal
 app.get('/', (req, res) => {
@@ -266,33 +310,24 @@ app.get('/api/v1/docs', (req, res) => {
  * @swagger
  * /api/v1/query:
  *   post:
- *     summary: Consultar la base de conocimiento
- *     description: Realiza una consulta a la base de conocimiento usando Groq AI
+ *     tags: [Consultas]
+ *     summary: Realizar una consulta al asistente virtual
+ *     description: Envía una pregunta y recibe una respuesta concisa sobre CheersChat o BRM
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - pregunta
- *             properties:
- *               pregunta:
- *                 type: string
- *                 description: La pregunta a realizar
- *                 example: ¿Qué información tienes sobre BRM?
+ *             $ref: '#/components/schemas/Query'
  *     responses:
  *       200:
  *         description: Respuesta exitosa
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 respuesta:
- *                   type: string
+ *               $ref: '#/components/schemas/Response'
  *       400:
- *         description: Pregunta requerida
+ *         description: Pregunta no proporcionada
  *       500:
  *         description: Error interno del servidor
  */
